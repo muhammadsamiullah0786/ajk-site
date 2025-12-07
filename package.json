@@ -1,7 +1,23 @@
 {
   "name": "ajk-site-gmail",
   "version": "1.0.0",
+  "description": "AJK Insurance Website",
+  "main": "app.js",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
   "dependencies": {
-    "nodemailer": "^6.9.4"
-  }
+    "mongodb": "^7.0.0",
+    "next": "^16.0.7",
+    "nodemailer": "^6.10.1",
+    "react": "^19.2.1",
+    "react-dom": "^19.2.1"
+  },
+  "devDependencies": {},
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

@@ -185,36 +185,109 @@
       </div>
     </section>
 
-    <!-- Apply / Contact Form -->
-    
-    
-    <section id="apply" class="apply container">
-      <div class="apply-wrap">
-<h2>Online Application</h2>
-      <p class="lead">Fill this short form and our advisor will contact you within 24 hours.</p>
+    <!-- Online Application / Contact Form -->
+<section id="apply" class="apply container">
+  <div class="apply-wrap">
+    <h2>Online Application</h2>
+    <p class="lead">Fill this short form and our advisor will contact you within 24 hours.</p>
 
-      <form id="leadForm" class="form card-form compact-form" enctype="multipart/form-data" novalidate>
-        <div class="form-row">
-          <label class="field">
-            Full Name
-            <input type="text" name="fullName" id="fullName" required />
-          </label>
-          <label class="field">
-            Email
-            <input type="email" name="email" id="email" required />
-          </label>
-        </div>
+    <form id="leadForm" class="form card-form compact-form" novalidate>
+      <div class="form-row">
+        <label class="field">
+          Full Name *
+          <input type="text" name="fullName" id="fullName" required />
+        </label>
+        <label class="field">
+          Email *
+          <input type="email" name="email" id="email" required />
+        </label>
+      </div>
 
-        <div class="form-row">
-          <label class="field">
-            Phone Number
-            <input type="tel" name="phone" id="phone" required />
-          </label>
-          <label class="field">
-            Date of Birth
-            <input type="date" name="dob" id="dob" required />
-          </label>
-        </div>
+      <div class="form-row">
+        <label class="field">
+          Phone Number *
+          <input type="tel" name="phone" id="phone" required />
+        </label>
+        <label class="field">
+          Date of Birth
+          <input type="date" name="dob" id="dob" />
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label class="field">
+          Insurance Type
+          <input type="text" name="insuranceType" id="insuranceType" />
+        </label>
+        <label class="field">
+          City
+          <input type="text" name="city" id="city" />
+        </label>
+        <label class="field">
+          Country
+          <input type="text" name="country" id="country" />
+        </label>
+      </div>
+
+      <div class="form-row">
+        <label class="field">
+          Message
+          <textarea id="message" name="message" rows="4"></textarea>
+        </label>
+      </div>
+
+      <div class="form-row">
+        <button type="submit">Submit Application</button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- Form Submission Script -->
+<script>
+document.getElementById('leadForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const formData = {
+    fullName: document.getElementById('fullName')?.value.trim(),
+    email: document.getElementById('email')?.value.trim(),
+    phone: document.getElementById('phone')?.value.trim(),
+    dob: document.getElementById('dob')?.value || '',
+    insuranceType: document.getElementById('insuranceType')?.value || '',
+    city: document.getElementById('city')?.value || '',
+    country: document.getElementById('country')?.value || '',
+    message: document.getElementById('message')?.value || ''
+  };
+
+  // Simple validation for required fields
+  if (!formData.fullName || !formData.email || !formData.phone) {
+    alert('Please fill in Name, Email, and Phone.');
+    return;
+  }
+
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(formData)
+    });
+
+    const data = await res.json();
+
+    if (data.ok) {
+      alert('Form submitted successfully!');
+      e.target.reset(); // reset form
+    } else {
+      alert('Submission failed: ' + (data.error || 'Unknown error'));
+    }
+  } catch (err) {
+    console.error('Form submission error:', err);
+    alert('Error submitting form. Please try again later.');
+  }
+});
+</script>
+
+
 
         <div class="form-row">
           <label class="field">
